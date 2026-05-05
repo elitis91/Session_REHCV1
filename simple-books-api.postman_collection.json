@@ -1,0 +1,707 @@
+{
+  "info": {
+    "_postman_id": "c9a2819b-7cb9-41e3-b302-bfc13f095f3e",
+    "name": "simple-books-api",
+    "description": "Simple collection for SBA.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11666127"
+  },
+  "item": [
+    {
+      "name": "books",
+      "item": [
+        {
+          "name": "return books",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let books = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Liste non vide\", function() {\r",
+                  "    pm.expect(books.length).to.be.above(0);\r",
+                  "})\r",
+                  "\r",
+                  "// stocker le premier livre dans une variable pour les tests suivants  \r",
+                  "pm.collectionVariables.set(\"bookId\", books[0].id)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "books"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK - Books successfully retrieved",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/books",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "books"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "417"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 05 May 2026 09:34:19 GMT"
+                },
+                {
+                  "key": "x-amzn-trace-id",
+                  "value": "Root=1-69f9b99b-3c00ab104aed02fe0290094f;Parent=717137d120bd0a42;Sampled=0;Lineage=1:9ee0f5ed:0"
+                },
+                {
+                  "key": "x-amzn-requestid",
+                  "value": "b1aec0f6-2a33-426b-9d6d-2d9d2845d0be"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "c4nwTFxiIAMEYjg="
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+                },
+                {
+                  "key": "x-cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "via",
+                  "value": "1.1 e2077a735176ccf875faf46f58083a78.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "x-amz-cf-pop",
+                  "value": "CDG50-P6"
+                },
+                {
+                  "key": "x-amz-cf-id",
+                  "value": "DUP1dvcEJ7S97_tLLlPcgV1F-_mXhFQFhqqWSym8-LTmiJeekdItjQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"The Russian\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 3,\n        \"name\": \"The Vanishing Half\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 4,\n        \"name\": \"The Midnight Library\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Viscount Who Loved Me\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Just as I Am\",\n        \"type\": \"non-fiction\",\n        \"available\": false\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Untamed\",\n        \"type\": \"non-fiction\",\n        \"available\": true\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "return single book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let book = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Book ID is correct\", function () {\r",
+                  "    pm.expect(book.id).to.equal(parseInt(pm.collectionVariables.get(\"bookId\")));\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "books",
+                "{{bookId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK - book retrieved",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/books/{{bookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "books",
+                    "{{bookId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "316"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 05 May 2026 09:43:11 GMT"
+                },
+                {
+                  "key": "x-amzn-trace-id",
+                  "value": "Root=1-69f9bbaf-695499c55044c6ed04bd35a3;Parent=0247ccbbe322fa3a;Sampled=0;Lineage=1:9ee0f5ed:0"
+                },
+                {
+                  "key": "x-amzn-requestid",
+                  "value": "7e511243-ea46-4382-a75e-22d2c84c7e1c"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "access-control-allow-headers",
+                  "value": "Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "c4pDdF15oAMEFVQ="
+                },
+                {
+                  "key": "access-control-allow-methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+                },
+                {
+                  "key": "x-cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "via",
+                  "value": "1.1 34cdeee86318aba97d53c80c0b36ec20.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "x-amz-cf-pop",
+                  "value": "CDG50-P6"
+                },
+                {
+                  "key": "x-amz-cf-id",
+                  "value": "OjM8T6q9PCwHstI65n5i2FhsJmaA2uRhcQYUvQbyLxHOJ4GGM3nwgA=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"entityType\": \"BOOK\",\n    \"available\": true,\n    \"timestamp\": 1752239490804,\n    \"created\": \"2025-07-11T13:11:30.804Z\",\n    \"isbn\": \"1780899475\",\n    \"GSI1SK\": \"BOOK#1\",\n    \"name\": \"The Russian\",\n    \"current-stock\": 12,\n    \"GSI1PK\": \"TYPE#fiction\",\n    \"price\": 12.98,\n    \"PK\": \"BOOK#1\",\n    \"author\": \"James Patterson and James O. Born\",\n    \"type\": \"fiction\",\n    \"SK\": \"METADATA\"\n}"
+            }
+          ]
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "submit order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"Commande créée\",function(){\r",
+                  "    pm.expect(pm.response.json().orderId).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "//stocker\r",
+                  "pm.collectionVariables.set(\"orderId\", pm.response.json().orderId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"bookId\": {{bookId}},\r\n    \"customerName\": \"{{$randomUserName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "return orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "return single order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerName\": \"{{$randomUserName}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/{{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{accessToken}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "client authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if accessToken is present\", function () {\r",
+                  "    pm.expect(data.accessToken).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"accessToken\", data.accessToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clientName\": \"{{$randomUserName}}\",\r\n    \"clientEmail\": \"{{$randomEmail}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api-clients/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api-clients",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "return status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"API opérationnelle\", function(){\r",
+              "    pm.expect(pm.response.json().status).to.eql(\"OK\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status code est 200\", function(){\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "status"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "OK - API up",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://simple-books-api.click/status",
+              "protocol": "https",
+              "host": [
+                "simple-books-api",
+                "click"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": ":status",
+              "value": 200
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "content-length",
+              "value": "15"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 05 May 2026 09:24:12 GMT"
+            },
+            {
+              "key": "x-amzn-trace-id",
+              "value": "Root=1-69f9b73c-494e52bc24828ad455910218;Parent=77a2337dffc090a7;Sampled=0;Lineage=1:9ee0f5ed:0"
+            },
+            {
+              "key": "x-amzn-requestid",
+              "value": "ff0adc59-1058-4f61-bd55-523ad9518629"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "access-control-allow-headers",
+              "value": "Content-Type, Authorization, X-Amz-Date, X-Api-Key, X-Amz-Security-Token"
+            },
+            {
+              "key": "x-amz-apigw-id",
+              "value": "c4mRlHU-IAMErjw="
+            },
+            {
+              "key": "access-control-allow-methods",
+              "value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+            },
+            {
+              "key": "x-cache",
+              "value": "Miss from cloudfront"
+            },
+            {
+              "key": "via",
+              "value": "1.1 ec5aa30b4881c660c0f4daebfb0bce48.cloudfront.net (CloudFront)"
+            },
+            {
+              "key": "x-amz-cf-pop",
+              "value": "CDG50-P6"
+            },
+            {
+              "key": "x-amz-cf-id",
+              "value": "2LeGOr51wFUTrpsegB7ayRe8UrrEgY-stBRjw0GmmKrkyClDB3ZuWQ=="
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"OK\"\n}"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "bookId",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    }
+  ]
+}
